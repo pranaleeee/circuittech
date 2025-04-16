@@ -10,11 +10,27 @@
 
     <!-- Replace CHANNEL_ID with your actual ThingSpeak channel ID -->
     <iframe width="450" height="260" style="border: 1px solid #cccccc;" 
-        src="https://thingspeak.com/channels/YOUR_CHANNEL_ID/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true">
+        src="https://thingspeak.com/channels/2912929/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true">
     </iframe>
 
     <!-- Add more charts if needed for other fields -->
 
     <p style="margin-top:20px;">Stay consistent with your medication! 💊</p>
+    <button onclick="sendData()">Send Data to ThingSpeak</button>
+    <script>
+  function sendData() {
+    const apiKey = 'GE2BO1B4J5LFPA64'; // Replace this with your ThingSpeak Write API key
+    const fieldValue = 42;
+
+    fetch(https://api.thingspeak.com/update?api_key=${apiKey}&field1=${fieldValue})
+      .then(response => response.text())
+      .then(data => {
+        alert('Data sent to ThingSpeak! Entry ID: ' + data);
+      })
+      .catch(error => {
+        console.error('Error sending data:', error);
+      });
+  }
+</script>
 </body>
 </html>

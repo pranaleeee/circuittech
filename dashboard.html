@@ -1,36 +1,192 @@
 <!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Smart Pillbox</title>
+
+</head>
+
+<body style="text-align:center; font-family:sans-serif; background-color: #f1f8e9;">
+
+    <h1>📦 Smart Pillbox - Live Monitoring</h1>
+
+    <p>Below is the live data from the pillbox:</p>
+
+
+
+    <!-- Static Chart (optional) -->
+
+    <iframe width="450" height="260" style="border: 1px solid #cccccc;" 
+
+        src="https://thingspeak.com/channels/2912929/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true">
+
+    </iframe>
+
+
+
+    <!-- Dynamic Chart Based on Day -->
+
+    <div id="graph-container" style="margin-top: 30px;"></div>
+
+
+
+    <!-- Button to Send Test Data -->
+
+    <button onclick="sendData()">Send Data to ThingSpeak</button>
+
+
+
+    <p style="margin-top:20px;">Stay consistent with your medication! 💊</p>
+
+
+
+    <script>
+
+      // Send sample data to ThingSpeak
+
+      function sendData() {
+
+        const apiKey = 'GE2BO1B4J5LFPA64'; // Your Write API Key
+
+        const fieldValue = 42;
+
+
+
+        fetch(https://api.thingspeak.com/update?api_key=${apiKey}&field1=${fieldValue})
+
+          .then(response => response.text())
+
+          .then(data => {
+
+            alert('Data sent to ThingSpeak! Entry ID: ' + data);
+
+          })
+
+          .catch(error => {
+
+            console.error('Error sending data:', error);
+
+          });
+
+      }
+
+
+
+      // Display live chart based on the current day
+
+      const day = new Date().getDay(); // 0 = Sunday, 1 = Monday, etc.
+
+      const fieldMap = {
+
+        0: 7, // Sunday → Field7
+
+        1: 1,
+
+        2: 2,
+
+        3: 3,
+
+        4: 4,
+
+        5: 5,
+
+        6: 6  // Saturday
+
+      };
+
+
+
+      const field = fieldMap[day];
+
+      const channelID = "2912929"; // Your ThingSpeak Channel ID
+
+
+
+      const iframe = document.createElement("iframe");
+
+      iframe.width = 450;
+
+      iframe.height = 260;
+
+      iframe.style.border = "1px solid #ccc";
+
+      iframe.src = https://thingspeak.com/channels/${channelID}/field/${field}.html?days=1;
+
+
+
+      document.getElementById("graph-container").appendChild(iframe);
+
+    </script>
+
+</body>
+
+</html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>iPill Dashboard</title>
+    <title>Smart Pillbox</title>
 </head>
 <body style="text-align:center; font-family:sans-serif; background-color: #f1f8e9;">
     <h1>📦 Smart Pillbox - Live Monitoring</h1>
     <p>Below is the live data from the pillbox:</p>
 
-    <!-- Replace CHANNEL_ID with your actual ThingSpeak channel ID -->
+    <!-- Static Chart (optional) -->
     <iframe width="450" height="260" style="border: 1px solid #cccccc;" 
         src="https://thingspeak.com/channels/2912929/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true">
     </iframe>
 
-    <!-- Add more charts if needed for other fields -->
+    <!-- Dynamic Chart Based on Day -->
+    <div id="graph-container" style="margin-top: 30px;"></div>
+
+    <!-- Button to Send Test Data -->
+    <button onclick="sendData()">Send Data to ThingSpeak</button>
 
     <p style="margin-top:20px;">Stay consistent with your medication! 💊</p>
-    <button onclick="sendData()">Send Data to ThingSpeak</button>
-    <script>
-  function sendData() {
-    const apiKey = 'GE2BO1B4J5LFPA64'; // Replace this with your ThingSpeak Write API key
-    const fieldValue = 42;
 
-    fetch(https://api.thingspeak.com/update?api_key=${apiKey}&field1=${fieldValue})
-      .then(response => response.text())
-      .then(data => {
-        alert('Data sent to ThingSpeak! Entry ID: ' + data);
-      })
-      .catch(error => {
-        console.error('Error sending data:', error);
-      });
-  }
-</script>
+    <script>
+      // Send sample data to ThingSpeak
+      function sendData() {
+        const apiKey = 'GE2BO1B4J5LFPA64'; // Your Write API Key
+        const fieldValue = 42;
+
+        fetch(https://api.thingspeak.com/update?api_key=${apiKey}&field1=${fieldValue})
+          .then(response => response.text())
+          .then(data => {
+            alert('Data sent to ThingSpeak! Entry ID: ' + data);
+          })
+          .catch(error => {
+            console.error('Error sending data:', error);
+          });
+      }
+
+      // Display live chart based on the current day
+      const day = new Date().getDay(); // 0 = Sunday, 1 = Monday, etc.
+      const fieldMap = {
+        0: 7, // Sunday → Field7
+        1: 1,
+        2: 2,
+        3: 3,
+        4: 4,
+        5: 5,
+        6: 6  // Saturday
+      };
+
+      const field = fieldMap[day];
+      const channelID = "2912929"; // Your ThingSpeak Channel ID
+
+      const iframe = document.createElement("iframe");
+      iframe.width = 450;
+      iframe.height = 260;
+      iframe.style.border = "1px solid #ccc";
+      iframe.src = https://thingspeak.com/channels/${channelID}/field/${field}.html?days=1;
+
+      document.getElementById("graph-container").appendChild(iframe);
+    </script>
 </body>
 </html>

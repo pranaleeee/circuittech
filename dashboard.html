@@ -43,86 +43,46 @@
     <p style="margin-top:20px;">Stay consistent with your medication! 💊</p>
 
 
+   <script>
+  // Send sample data to ThingSpeak
+  function sendData() {
+    const apiKey = 'GE2BO1B4J5LFPA64'; // Your Write API Key
+    const fieldValue = 42;
 
-    <script>
+    fetch(`https://api.thingspeak.com/update?api_key=${apiKey}&field1=${fieldValue}`)
+      .then(response => response.text())
+      .then(data => {
+        alert('Data sent to ThingSpeak! Entry ID: ' + data);
+      })
+      .catch(error => {
+        console.error('Error sending data:', error);
+      });
+  }
 
-      // Send sample data to ThingSpeak
+  // Display live chart based on the current day
+  const day = new Date().getDay(); // 0 = Sunday, 1 = Monday, etc.
+  const fieldMap = {
+    0: 7, // Sunday → Field7
+    1: 1,
+    2: 2,
+    3: 3,
+    4: 4,
+    5: 5,
+    6: 6  // Saturday
+  };
 
-      function sendData() {
+  const field = fieldMap[day];
+  const channelID = "2912929"; // Your ThingSpeak Channel ID
 
-        const apiKey = 'GE2BO1B4J5LFPA64'; // Your Write API Key
+  const iframe = document.createElement("iframe");
+  iframe.width = 450;
+  iframe.height = 260;
+  iframe.style.border = "1px solid #ccc";
+  iframe.src = `https://thingspeak.com/channels/${channelID}/field${field}.html?days=1`;
+  document.getElementById("graph-container").appendChild(iframe);
+</script>
 
-        const fieldValue = 42;
-
-
-
-        fetch(https://api.thingspeak.com/update?api_key=${apiKey}&field1=${fieldValue})
-
-          .then(response => response.text())
-
-          .then(data => {
-
-            alert('Data sent to ThingSpeak! Entry ID: ' + data);
-
-          })
-
-          .catch(error => {
-
-            console.error('Error sending data:', error);
-
-          });
-
-      }
-
-
-
-      // Display live chart based on the current day
-
-      const day = new Date().getDay(); // 0 = Sunday, 1 = Monday, etc.
-
-      const fieldMap = {
-
-        0: 7, // Sunday → Field7
-
-        1: 1,
-
-        2: 2,
-
-        3: 3,
-
-        4: 4,
-
-        5: 5,
-
-        6: 6  // Saturday
-
-      };
-
-
-
-      const field = fieldMap[day];
-
-      const channelID = "2912929"; // Your ThingSpeak Channel ID
-
-
-
-      const iframe = document.createElement("iframe");
-
-      iframe.width = 450;
-
-      iframe.height = 260;
-
-      iframe.style.border = "1px solid #ccc";
-
-      iframe.src = https://thingspeak.com/channels/${channelID}/field/${field}.html?days=1;
-
-
-
-      document.getElementById("graph-container").appendChild(iframe);
-
-    </script>
-
-</body>
+ </body>
 
 </html>
 
